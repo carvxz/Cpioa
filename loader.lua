@@ -1,22 +1,22 @@
 
-local scripts = {
-    ["Cpioa"] = "Cpioa.md",
-    ["Crazy8"] = "Crazy-8-up.md",
-    ["Criminal"] = "Criminal.md",
-    ["Koi"] = "Koi.md"
-}
-
 return function(nome)
-    local arquivo = scripts[nome]
-
-    if not arquivo then
-        warn("Script não encontrado: " .. tostring(nome))
+    if type(nome) ~= "string"
+        or not nome:match("^[%w%-]+$") then
+        warn("Nome inválido!")
         return
     end
 
-    local url = "https://raw.githubusercontent.com/carvxz/Cpioa/main/" .. arquivo
+    local url = "https://raw.githubusercontent.com/carvxz/Cpioa/main/" .. nome .. ".md"
 
-    local codigo = game:HttpGet(url)
+    local ok, codigo = pcall(function()
+        return game:HttpGet(url)
+    end)
+
+    if not ok then
+        warn("Erro ao baixar o script!")
+        return
+    end
+
     local executar, erro = loadstring(codigo)
 
     if not executar then
