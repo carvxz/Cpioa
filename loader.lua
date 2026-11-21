@@ -1,11 +1,13 @@
 
 return function(nome)
     if type(nome) ~= "string"
-        or not nome:match("^[%w%-]+$") then
+        or not nome:match("^[%w%- ]+$") then
         return
     end
 
-    local url = "https://raw.githubusercontent.com/carvxz/Cpioa/main/" .. nome .. ".md"
+    local arquivo = nome:gsub(" ", "%%20")
+
+    local url = "https://raw.githubusercontent.com/carvxz/Cpioa/main/" .. arquivo .. ".md"
 
     local ok, codigo = pcall(function()
         return game:HttpGet(url)
