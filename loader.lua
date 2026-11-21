@@ -1,4 +1,3 @@
-
 return function(nome)
     if type(nome) ~= "string"
         or not nome:match("^[%w%- ]+$") then
